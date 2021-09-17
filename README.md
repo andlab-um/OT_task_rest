@@ -6,7 +6,7 @@ resting_face task fMRI
 
 ## Analysis Code
 
-All code required to reproduce results presented in the paper are under `./code`
+All code required to reproduce results presented in the paper are here.
 
 阅读顺序：OTaggbeta、OTnetworkregression、myreconstruct、oldreconstruct、correlation.
 
@@ -16,7 +16,7 @@ networkregression是将同属于一个脑网络的成分进行平均后，用一
 除此之外，aggbeta脚本和networkregression脚本几乎完全相同，因此仅在OTaggbeta脚本中有详细注释。
 
 myreconstruct及oldreconstruct都用于重构，即用静息态数据和aggbeta预测任务态数据，并计算真实数据和预测数据之间的相关性。
-两个脚本之间唯一的区别就在于一个被试的静息态数据是带入自己的betamap（myreconstruct）还是带入其他人的betamap（oldreconstruct）
+两个脚本之间唯一的区别就在于一个被试的静息态数据是代入自己的betamap（myreconstruct）还是代入其他人的betamap（oldreconstruct）
 具体区别是在第一个for循环中“ypredict=XrestPL*agg_beta28(:,c);”这一步，详细的注释在myreconstruct里。
 
 

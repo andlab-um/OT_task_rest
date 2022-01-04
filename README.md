@@ -6,18 +6,19 @@ resting_face task fMRI
 
 ## Analysis Code
 
-All code required to reproduce results presented in the paper are here.
+All code required to reproduce results presented in the paper is here.
 
-阅读顺序：OTaggbeta、OTnetworkregression、myreconstruct、oldreconstruct、correlation.
+Reading order: OTaggbeta, OTnetworkregression, myreconstruct, oldreconstruct, and correlation.
 
-OTaggbeta和OTnetworkregression里的代码全部用于最初的模型构建。
-aggbeta是用所有静息态成分（除和任何一个RSN脑网络的相关都不超过0.1的之外）预测特定任务态成分。
-networkregression是将同属于一个脑网络的成分进行平均后，用一个成分代表一个脑网络，再用这13个成分（除去初级视觉皮层网络）预测特定任务态成分。
-除此之外，aggbeta脚本和networkregression脚本几乎完全相同，因此仅在OTaggbeta脚本中有详细注释。
+The models are constructed using all code in "OTaggbeta" and "OTnetworkregression".
+We use code in "aggbeta" to predict each IC in the task state by all extracted ICs from the rsfMRI data.
+Running code in the "networkregression", we represent the activity of a network by averaging the value of ICs belonging to the network, so that every network has one averaged IC. Then we use these averaged ICs to predict the ICs in the task state.
+Due to the code in "aggbeta" and "networkregression" being most similar, we only write detailed code comments in "OT aggbeta".
 
-myreconstruct及oldreconstruct都用于重构，即用静息态数据和aggbeta预测任务态数据，并计算真实数据和预测数据之间的相关性。
-两个脚本之间唯一的区别就在于一个被试的静息态数据是代入自己的betamap（myreconstruct）还是代入其他人的betamap（oldreconstruct）
-具体区别是在第一个for循环中“ypredict=XrestPL*agg_beta28(:,c);”这一步，详细的注释在myreconstruct里。
+"Myreconstruct" and "oldreconstruct" are all applied to predicting task data through combining the resting data and the model, followed by calculating the correlation coefficients between the predicted data and the actual data. The only difference between the two scripts is that the resting data of one subject is combined with his own beta map in "myreconstruct", but is combined with other's beta map in "oldreconstruct".
+
+Specifically, the difference is displayed in the step "ypredict=XrestPL*agg_beta28(:,c);" of the first loop. "Myreconstruct" provides detailed code comments.
+
 
 
 
@@ -31,5 +32,3 @@ myreconstruct及oldreconstruct都用于重构，即用静息态数据和aggbeta�
 
 predictive modelling and analysis (including figure 2-3) is under `./models`
 
-## Statical analysis
-R scripts for statical analysis

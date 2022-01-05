@@ -1,3 +1,9 @@
+%The inputs of this script include all resting and task ICs obtained by GIFT.
+%The outputs of this script include:
+%1. the contribution of the resting networks in predicting every task ICs, thus every task IC has a network_beta.mat. 
+%2. the determination coefficients R square for each task IC, stored in the networkR.mat.
+%3. the results of the one-sample t-test which is performed to test whether the beta value of each resting network is significantly larger than zero, stored in the networkt.mat.
+
 %OT
 network_beta1 = [];  
 network_beta17 = [];
@@ -11,7 +17,7 @@ for i=1:30
     namerest = strcat('OTot_ica_br',int2str(i),'.mat');
     load(['E:\data\OT\OT_Resting\ICA_results_2\OT\',namerest]);
     b=compSet.ic;
-    %OT静息态成分及最后的X
+    %averaged ICs belonging to one network
     bgn=b([4,5,13,32],:);
     BGN=(mean(bgn))';
     vn=b([14,26],:);
@@ -40,21 +46,20 @@ for i=1:30
     PSN=psn';
     
     XnetworkOT=[BGN,VN,RECN,VDMN,DDMN,SN,ASN,AN,HVN,LECN,LN,PN,PSN];
-    x1 = ones(size(XnetworkOT,1),1);
+    x1 = ones(size(XnetworkOT,1),1);%this step is needed to calculate the determination coefficients.
     XnetworkOT=[x1,XnetworkOT];
     
     for j=1:2
     t=(j:2:60);
     e=t(1,i);
     namefunc = strcat('an_ica_br',int2str(e),'.mat');
-    load(['E:\data\OT\OT_Functional\ICA\new\testOT_OTdefaultmask\shanghuigui\',namefunc]) ;%使用PL任务态默认生成mask的被试的OTica数据
+    load(['E:\data\OT\OT_Functional\ICA\new\testOT_OTdefaultmask\shanghuigui\',namefunc]) ;
     a=compSet.ic;
     yfOTic1= a(1,:)';
     yfOTic17= a(17,:)';
     yfOTic19= a(19,:)';
     yfOTic26= a(26,:)';
-%算beta值并评估模型
-%将60个session的betamap放到一起
+%Calculate beta and evaluate the model
     [b,bint,r,rint,stats] = regress(yfOTic1,XnetworkOT);
     network_beta1 = [network_beta1,b];
     networkR1=[networkR1;stats];
@@ -87,15 +92,14 @@ networkt1=[];
 networkt26=[];
 networkt19=[];
 networkt17=[];
-%第一行是用于对照的空模型常数项，不纳入分析，因此从第二行开始
+%The first line is the empty model constant term for comparison, which is not included in the analysis, so the second line is started.
 for i=2:14
 
-    %%得到13个网络的beta的均值和方差，由循环一行一行的得到
+    %%Get the mean and variance of the beta of all resting networks, obtained by the loop line by line.
     data1 =network_beta1(i,:);
-    %%做t检验
+    %%one-sample t-test
      h1 = ttest(data1);
      networkt1 = [networkt1,h1];
-    %保存t检验结果
     save('E:\data\OT\predictresult\newstandard\OTtoOT1\1PN\networkt1.mat','networkt1');
 
      data26 =network_beta26(i,:);
@@ -113,15 +117,15 @@ for i=2:14
       networkt17 = [networkt17,h17];
       save('E:\data\OT\predictresult\newstandard\OTtoOT1\17ASN\networkt17.mat','networkt17');
 end
-%画13个成分的均值-方差箱型图,叠加上t检验显著的信息
+%Draw a mean-variance box plot for 13 networks and superimpose the results of t-test.
 labelOT=readtable('E:\data\OT\predictresult\newstandard\OTtoOT1\labelOT.txt');
 boxfig26=network_beta26';
 p = boxplot(boxfig26,'BoxStyle' ,'filled','Colorgroup',labelOT.Var1,'OutlierSize',1,'Symbol','.','Widths',0.1,'Labels',labelOT.Var1);
 hold on
 sz=8;
-%调整星号位置
+%Adjust the asterisk position
 t=0.4*networkt1;
-%星号颜色为黑色
+%The asterisk is black in color
 c=[0,0,0];
 g=(1:1:13);
 scatter(g,t,sz,c,'*');

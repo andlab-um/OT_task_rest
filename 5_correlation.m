@@ -1,5 +1,7 @@
 %In this script, we test the connectivity among 13 resting state networks, and the connectivity among ICs in task state.
-%此脚本需要输入的是所有被试静息态及任务态的所有IC数据，输出为静息态两个条件下组水平的网络间相关矩阵，ROTmean和RPLmean及两个条件的差值Rdif。以及任务态个条件下组水平的网络间相关矩阵taskOTr和taskPLr
+%The inputs of this script include all resting and task ICs obtained by GIFT.
+%Three main outputs will be obtained by this script:
+%输出为静息态两个条件下组水平的网络间相关矩阵，ROTmean和RPLmean及两个条件的差值Rdif。以及任务态个条件下组水平的网络间相关矩阵taskOTr和taskPLr
 Rdifagg=zeros(13,13);
 ROTagg=zeros(13,13);
 RPLagg=zeros(13,13);

@@ -1,16 +1,19 @@
 %In this script, we test the connectivity among 13 resting state networks, and the connectivity among ICs in task state.
 %The inputs of this script include all resting and task ICs obtained by GIFT.
 %Three main outputs will be obtained by this script:
-%输出为静息态两个条件下组水平的网络间相关矩阵，ROTmean和RPLmean及两个条件的差值Rdif。以及任务态个条件下组水平的网络间相关矩阵taskOTr和taskPLr
+%1. the correlation matrix among networks for both group(ROTagg.mat and RPLagg.mat) on the individual-level in the resting state.
+%2. the averaged correlation matrix among networks for both group(ROTmean.mat and RPLmean.mat) on the group-level in the resting state, and the difference between groups(Rdif.mat).
+%3. the averaged correlation matrix among networks for both group(taskOTr.mat and taskOTr.mat) on the group-level in the task state.
+
 Rdifagg=zeros(13,13);
 ROTagg=zeros(13,13);
 RPLagg=zeros(13,13);
 for i=1:29
-%PL的网络间相关性
+%the correlation coefficients among networks for the PL group
   namerest = strcat('PLot_ica_br',int2str(i),'.mat');
     load(['E:\data\OT\OT_Resting\ICA_results_2\PL\',namerest]);
     b=compSet.ic;
-%%%取属于一个脑网络的几个成分的均值     
+%%%average the value of ICs belonging to one network    
      bgn=b(21,:);
     BGN=bgn';
     vn=b([6,20,26],:);
@@ -37,12 +40,12 @@ for i=1:29
     PN=(mean(pn))';
     psn=b([31,23],:);
     PSN=(mean(psn))';
-    %计算相关矩阵
+    %Computing the correlation matrix
    XnetworkPL=[BGN,VN,RECN,VDMN,DDMN,SN,ASN,AN,HVN,LECN,LN,PN,PSN];
     RPL=corrcoef(XnetworkPL);
     RPLagg=RPL+RPLagg;
 
-%OT的网络间相关性
+%the correlation coefficients among networks for the OT group
     namerest = strcat('OTot_ica_br',int2str(i),'.mat');
     load(['E:\data\OT\OT_Resting\ICA_results_2\OT\',namerest]);
     b=compSet.ic;
@@ -76,7 +79,7 @@ for i=1:29
     XnetworkOT=[BGN,VN,RECN,VDMN,DDMN,SN,ASN,AN,HVN,LECN,LN,PN,PSN];
     ROT=corrcoef(XnetworkOT);
     ROTagg=ROT+ROTagg;
-    %算两个条件矩阵的差值
+    %computing the differences between matrices in OT and PL group
     Rdiff=ROT-RPL;
     Rdifagg=Rdifagg+Rdiff;
 end
@@ -87,14 +90,14 @@ save('E:\data\OT\predictresult\newmethod\Rdif.mat','Rdif');
 save('E:\data\OT\predictresult\newmethod\ROTmean.mat','ROTmean');
 save('E:\data\OT\predictresult\newmethod\RPLmean.mat','RPLmean');
 
+%correlation matrix in the task state
 otr=zeros(4,4);
 otp=zeros(4,4);
 for i=1:30
-    %提取每个被试的静息态ic
     namerest = strcat('an_ica_br',int2str(i),'.mat');
     load(['E:\data\OT\OT_Functional\ICA\new\testOT_OTdefaultmask\shanghuigui\',namerest]);
     b=compSet.ic;
-%    PL条件,处理PL条件时将i=1：30改为i=1：29
+%    PL group, when handling PL condition, change I = 1:30 to I = 1:29
 % 	pn=(b(27,:))';
 %     ddmn=(b(28,:))';
 %     sn=(b(13,:))';
@@ -104,7 +107,7 @@ for i=1:30
 %     plr=plr+rho;
 %     plp=plp+pval;
 
-%    OT条件
+%    OT group
     pn=(b(1,:))';
     asn=(b(17,:))';
     sn=(b(19,:))';

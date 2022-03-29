@@ -1,16 +1,21 @@
-%从59个被试中分别选出接受OT和PL处理的被试
+% Main results obtained by this script include:
+%1:functional connectivity among networks for each subject in both OT and PL groups(you can change code in 30th and 60th row to decide on networks that you want to check).
+%2:the difference and significance between functional connectivity for two groups.
+%3:the between-subject similarity of functional connectivity in both groups, and whether the difference between this index for two groups is significant.
+
+%The subjects receiving OT and PL treatment were selected from 59 subjects respectively
 OTname={'1','2','3','4','9','10','15','16','21','22','23','24','25','26','27','28','32','33','38','39','44','45','46','47','48','49','50','51','56','57'};
 PLname={'5','6','7','8','11','12','13','14','17','18','19','20','29','30','31','34','35','36','37','40','41','42','43','52','53','54','55','58','59'};
-%% 计算ic间的FC矩阵及差异
 
-%rest的时间相关矩阵
+%% Calculate functional connectivity matrix and difference between networks
+
+%functional connectivity matrix in the resting state
 Rdifagg=zeros(9,9);
 for i=1:29
-%PL的网络间相关性
+%PL group
   namerest = strcat('rest_ica_br',PLname{1,i},'.mat');
     load(['E:\data\OT\newresult\ICAresting\',namerest]);
-    b=compSet.tc;
-%%%PL静息态成分及最后的X     
+    b=compSet.tc;   
     BGN=b(:,5);
     VN=b(:,24);
     vdmn=b(:,[18,23]);
@@ -24,19 +29,18 @@ for i=1:29
     HVN=b(:,36);
     PN=b(:,7);
     
-   %XnetworkPL=[BGN,VN,VDMN,DDMN,SN,ASN,AN,HVN,PN];
-   XnetworkPL=[VDMN,DDMN,PN];
-    RPL=corrcoef(XnetworkPL);
+   XnetworkPL=[BGN,VN,VDMN,DDMN,SN,ASN,AN,HVN,PN];
+    RPL=corrcoef(XnetworkPL);%Calculate the correlation coefficient among networks
     
-    %fisher 变换
+    %fisher transformation
     zPL=0.5*log((1+RPL)./(1-RPL));
-    for d=1:3
-        zPL(d,d)=1;%将对角线数值设为1
+    for d=1:size(XnetworkPL,2)
+        zPL(d,d)=1;%Set the diagonal value to 1
     end
-    %记录每个被试的网络间相关的z值
+    %The z values of r 
     RPLagg{i}=zPL;
     
-    %OT网络间相关性
+    %OT group
     namerest = strcat('rest_ica_br',OTname{1,i},'.mat');
     load(['E:\data\OT\newresult\ICAresting\',namerest]);
     b=compSet.tc;
@@ -54,24 +58,22 @@ for i=1:29
     HVN=b(:,36);
     PN=b(:,7);
 
-    %XnetworkOT=[BGN,VN,VDMN,DDMN,SN,ASN,AN,HVN,PN];
-    XnetworkOT=[VDMN,DDMN,PN];
+    XnetworkOT=[BGN,VN,VDMN,DDMN,SN,ASN,AN,HVN,PN];
     ROT=corrcoef(XnetworkOT);
     
-    %fisher 变换
     zOT=0.5*log((1+ROT)./(1-ROT));
-    for d=1:3
+    for d=1:size(XnetworkOT,2)
         zOT(d,d)=1;
     end
     
     ROTagg{i}=zOT;
-    %算两个条件矩阵的差值
+    %Compute the difference between the two conditional matrices
 %      Rdiff=ROT-RPL;
 %      Rdifagg=Rdifagg+Rdiff;
 end
 Rdif=Rdifagg/29;
 
-i=30;%补上OT的第30个被试
+i=30;%Make up the 30th subject in the OT group
 namerest = strcat('rest_ica_br',OTname{1,i},'.mat');
     load(['E:\data\OT\newresult\ICAresting\',namerest]);
     b=compSet.tc;
@@ -89,11 +91,9 @@ namerest = strcat('rest_ica_br',OTname{1,i},'.mat');
     HVN=b(:,36);
     PN=b(:,7);
 
-    %XnetworkOT=[BGN,VN,VDMN,DDMN,SN,ASN,AN,HVN,PN];
-    XnetworkOT=[VDMN,DDMN,PN];
+    XnetworkOT=[BGN,VN,VDMN,DDMN,SN,ASN,AN,HVN,PN];
     ROT=corrcoef(XnetworkOT);
-    
-    %fisher 变换
+
     zOT=0.5*log((1+ROT)./(1-ROT));
     for d=1:9
         zOT(d,d)=1;
@@ -102,10 +102,9 @@ namerest = strcat('rest_ica_br',OTname{1,i},'.mat');
     ROTagg{i}=zOT;
 save('E:\data\OT\newresult\correlation\time\Rdif.mat','Rdif');
 
-%task的相关矩阵
+%functional connectivity matrix in the task state
 taskrdifagg=zeros(3,3);
 for i=1:29
-    %提取每个被试的任务态tc
     namerest = strcat('task_ica_br',PLname{1,i},'.mat');
     load(['E:\data\OT\newresult\ICAtask\',namerest]);
     b=compSet.tc;
@@ -131,8 +130,7 @@ for i=1:29
     vdmn=b(:,10);
     taskOT=[pn,ddmn,vdmn];
     taskrOT=corrcoef(taskOT);
-    
-    %fisher 变换
+
     zOT=0.5*log((1+taskrOT)./(1-taskrOT));
     for d=1:3
         zOT(d,d)=1;
@@ -145,7 +143,7 @@ for i=1:29
 end
 taskrdifagg=taskrdifagg/29;
 
-i=30;%补上OT的第30个被试
+i=30;%Make up the 30th subject in the OT group
 namerest = strcat('task_ica_br',OTname{1,i},'.mat');
     load(['E:\data\OT\newresult\ICAtask\',namerest]);
     b=compSet.tc;
@@ -154,8 +152,7 @@ namerest = strcat('task_ica_br',OTname{1,i},'.mat');
     vdmn=b(:,10);
     taskOT=[pn,ddmn,vdmn];
     taskrOT=corrcoef(taskOT);
-    
-    %fisher 变换
+
     zOT=0.5*log((1+taskrOT)./(1-taskrOT));
     for d=1:3
         zOT(d,d)=1;
@@ -163,9 +160,10 @@ namerest = strcat('task_ica_br',OTname{1,i},'.mat');
     
     taskROTagg{i}=zOT;
 save('E:\data\OT\newresult\correlation\time\taskrdifagg.mat','taskrdifagg');
-%% 检验OT与PL组的FC矩阵间是否有显著差异
+          
+%% Testing whether there is significant difference between FC matrix of OT and PL group
 
-%将任务态脑网络连接做组间t检验并记录p值
+%T test was performed on task-state brain network connections and P values were recorded
 c=[];
 g=[];
 otp=zeros(3,3);
@@ -175,8 +173,8 @@ for x=1:3
         for i=1:29
         a=taskROTagg{i};
         e=taskRPLagg{i};
-        b=a(y,x);%取OT组每个被试的所有pairs of networks的相关值
-        f=e(y,x);%取PL组每个被试的所有pairs of networks的相关值
+        b=a(y,x);%The correlation coefficients of all Pairs of networks of each subject in OT group were obtained
+        f=e(y,x);%The correlation coefficients of all Pairs of networks of each subject in PL group were obtained
             c=[c;b];
             g=[g;f];
         end
@@ -188,7 +186,7 @@ for x=1:3
     end
 end
 
-%将静息态脑网络连接做组间t检验并记录p值
+%T test was performed on resting-state brain network connections and P values were recorded
 c=[];
 g=[];
 otp=zeros(9,9);
@@ -212,12 +210,12 @@ for a=1:30
        end   
     end
 end
-%% 计算OT组和PL组的subject variation是否有显著差异
+%% Calculate whether the between-subject similarity of OT group and PL group is significantly different
 %task state
 PLsub=[];  
 OTsub=[];  
  for i=1:29
-     a=tril(taskRPLagg{i});
+     a=tril(taskRPLagg{i});%Extract the upper triangular matrix
     % a=[taskRPLagg{i}(:,1);taskRPLagg{i}(:,2);taskRPLagg{i}(:,5);taskRPLagg{i}(:,6);taskRPLagg{i}(:,7);taskRPLagg{i}(:,8)];
      a=a(find(a~=1));
      a=a(find(a~=0));

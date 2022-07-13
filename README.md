@@ -1,5 +1,18 @@
 # OT_task_rest
-resting_face task fMRI
+# IMQ (interactive mentalization questionnaire) <img src="https://github.com/andlab-um/OT_task_rest/blob/main/procedure.png" align="right" width="361px">
+
+[![GitHub repo size](https://img.shields.io/github/repo-size/andlab-um/OT_task_rest?color=brightgreend&logo=github)](https://github.com/andlab-um/OT_task_rest)
+[![DOI](https://img.shields.io/badge/biorxiv-preprint-brightgreen)](https://doi.org/10.1101/2021.12.30.474596)<br />
+[![Twitter URL](https://img.shields.io/twitter/url?label=%40ANDlab3&style=social&url=https%3A%2F%2Ftwitter.com%2Flizhn7)](https://twitter.com/ANDlab3)
+
+
+**For this work: <br />**
+**Wu Q, Huang Q, Liu C, et al. Oxytocin modulates social brain network correlations in resting and task state[J]. bioRxiv, 2022: 2021.12. 30.474596. <br />
+
+
+related prework
+Wang Y, Wang R, Wu H. The role of oxytocin in modulating self-other distinction brain: a pharmacological fmri study[J]. bioRxiv, 2021.
+___
 
 
 ### Qingyuan Wu, Haiyan Wu(2021)
@@ -32,3 +45,7 @@ Specifically, the difference is displayed in the step "ypredict=XrestPL*agg_beta
 
 predictive modelling and analysis (including figure 2-3) is under `./models`
 
+## citation
+
+1. 
+2. 

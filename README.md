@@ -46,13 +46,16 @@ Specifically, the difference is displayed in the step "ypredict=XrestPL*agg_beta
 
 predictive modelling and analysis (including figure 2-3) is under `./models`
 
-## citation
+## Bibtex citation
 
-@article{wang1991role,
+1.
+
+  @article{wang1991role,
   title={The role of oxytocin in modulating self-other distinction in human brain: a pharmacological fMRI study},
   author={Wang, Yuanchen and Wang, Ruien and Wu, Haiyan},
   journal={Cerebral cortex (New York, NY: 1991)},
   pages={bhac167}
 }
+
 
 

@@ -1,7 +1,6 @@
 # OT_task_rest
 # Oxytocin modulates social brain network correlations in resting and task state (2022 Cerebral Cortex) <img src="https://github.com/andlab-um/OT_task_rest/blob/main/procedure.png" align="right" width="361px">
 
-[![GitHub repo size](https://img.shields.io/github/repo-size/andlab-um/OT_task_rest?color=brightgreend&logo=github)](https://github.com/andlab-um/OT_task_rest)
 [![DOI](https://img.shields.io/badge/biorxiv-preprint-brightgreen)](https://doi.org/10.1101/2021.12.30.474596)<br />
 [![Twitter URL](https://img.shields.io/twitter/url?label=%40ANDlab3&style=social&url=https%3A%2F%2Ftwitter.com%2Flizhn7)](https://twitter.com/ANDlab3)
 
@@ -11,11 +10,13 @@
 
 
 related prework
-Wang Y, Wang R, Wu H. The role of oxytocin in modulating self-other distinction brain: a pharmacological fmri study[J]. bioRxiv, 2021.
+
+Yuanchen Wang, Ruien Wang, Haiyan Wu, The role of oxytocin in modulating self–other distinction in human brain: a pharmacological fMRI study, Cerebral Cortex, 2022;, bhac167, https://doi.org/10.1093/cercor/bhac167
+
 ___
 
 
-### Qingyuan Wu, Haiyan Wu(2021)
+### Qingyuan Wu et al(2022)
 
 ## Analysis Code
 
@@ -47,5 +48,11 @@ predictive modelling and analysis (including figure 2-3) is under `./models`
 
 ## citation
 
-1. 
-2. 
+@article{wang1991role,
+  title={The role of oxytocin in modulating self-other distinction in human brain: a pharmacological fMRI study},
+  author={Wang, Yuanchen and Wang, Ruien and Wu, Haiyan},
+  journal={Cerebral cortex (New York, NY: 1991)},
+  pages={bhac167}
+}
+
+

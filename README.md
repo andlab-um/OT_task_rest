@@ -1,5 +1,5 @@
 # OT_task_rest
-# IMQ (interactive mentalization questionnaire) <img src="https://github.com/andlab-um/OT_task_rest/blob/main/procedure.png" align="right" width="361px">
+# Oxytocin modulates social brain network correlations in resting and task state (2022 Cerebral Cortex) <img src="https://github.com/andlab-um/OT_task_rest/blob/main/procedure.png" align="right" width="361px">
 
 [![GitHub repo size](https://img.shields.io/github/repo-size/andlab-um/OT_task_rest?color=brightgreend&logo=github)](https://github.com/andlab-um/OT_task_rest)
 [![DOI](https://img.shields.io/badge/biorxiv-preprint-brightgreen)](https://doi.org/10.1101/2021.12.30.474596)<br />

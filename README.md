@@ -9,15 +9,17 @@
 **Wu Q, Huang Q, Liu C, et al. Oxytocin modulates social brain network correlations in resting and task state[J]. bioRxiv, 2022: 2021.12. 30.474596. <br />
 
 
-related prework
+**related prework
 
-Yuanchen Wang, Ruien Wang, Haiyan Wu, The role of oxytocin in modulating self–other distinction in human brain: a pharmacological fMRI study, Cerebral Cortex, 2022;, bhac167, https://doi.org/10.1093/cercor/bhac167
+Yuanchen Wang, Ruien Wang, Haiyan Wu, The role of oxytocin in modulating self–other distinction in human brain: a pharmacological fMRI study, *Cerebral Cortex*, 2022;, bhac167, https://doi.org/10.1093/cercor/bhac167
 
 ___
 
 
 ### Qingyuan Wu et al(2022)
 <img src="https://github.com/andlab-um/OT_task_rest/blob/main//main%20result.png" align="center" width="1000px">
+
+
 ## Analysis Code
 
 All code required to reproduce results presented in the paper is here.

@@ -15,11 +15,10 @@ pz=[];
 for i=1:29
     r=[];
     p=[];
-    %提取每个被试的静息态ic
     namerest = strcat('PLot_ica_br',int2str(i),'.mat');
     load(['E:\data\OT\OT_Resting\ICA_results_2\PL\',namerest]);
     b=compSet.ic;
-%     PL静息态成分及最后的X
+% Delete the ICs that don't meet requirements
       delete=[2,9,14,27,28];
       b(delete,:)=[];
       XrestPL=b';
@@ -30,16 +29,24 @@ for i=1:29
             e=t(1,c);
             namefunc = strcat('PLot_ica_br',int2str(e),'.mat');
             load(['E:\data\OT\OT_Functional\ICA\new\testPL_OTdefaultmask\',namefunc]) ;% Task ICs
-            yorigin=(compSet.ic(28,:))';%Note that you need to change the values here to predict different components, such as DDMN, the 28th component in the PL task state, and agG_beta28 for betamap
-            ypredict=XrestPL*agg_beta28(:,c+29);%X是57549*30的矩阵，agg是第e个人的30个主成分，30*1的矩阵，列向量。每个人用自己的静息态数据和别人的beta map，预测出来和别人的real对比。若t是奇数列，则为e，若t是偶数列，则为e+30
-            %把自己预测自己得出的y的提取出来，每个被试都有一个，用于画预测脑图。如当i=c=1时，就是第一个被试的静息态预测第一个被试的任务态。
+            yorigin=(compSet.ic(28,:))';% Note that you need to change the values here to predict different components, such as DDMN, the 28th component in the PL task state, and agG_beta28 for betamap
+           
+            if j<2
+                ypredict=XrestPL*agg_beta28(:,c);%first run
+            else
+                ypredict=XrestPL*agg_beta28(:,c+30);%second run
+            end
+
+% Storing all self-predicted task activation. When i=c=1, it's the resting data of the first subject predicting the task data of the first subject.
+
     %         tf=isequal(i,c);
     %         if tf>0
     %             predict=[predict,ypredict];
     %         else
     %             predict=predict;
     %         end
-         %算预测值和实际观测值的相关系数rho及是否显著pval  
+    
+%Calculating the correlation coefficients(rho) between the predicted and actual task activation and its significance(pval).
             [rho,pval] = corr(ypredict,yorigin);
             r=[r,rho];
             p=[p,pval];
@@ -49,16 +56,18 @@ for i=1:29
     pz=[pz;p];
     
 end
-%把每个被试两个session的相关系数平均起来,第一行是第一个人预测所有人，第二行是第二个人预测所有人，以此类推。
+
+% Now we average the correlation coefficients of the two sessions for each subject.
 men=[];
-for g=1:29
-    h=g+29;
+for g=1:29 % setting 1:30 for OT group
+    h=g+29; % setting g+30 for OT group
     mn=mean([rz(g,:);rz(h,:)]);
     men=[men;mn];
 end
 save('E:\data\OT\predictresult\newstandard\PLtoPL\28DDMN\men.mat','men');
 %save('E:\data\OT\predictresult\newstandard\PLtoPL\28DDMN\predict.mat','predict');
-%算自己预测自己和自己预测他人之间的差
+
+% Calculate the increasing degree of self-predicted accuracy relative to other-predicted accuracy.
 difference=[];
 precentage=[];
 for i=1:29
@@ -73,7 +82,7 @@ end
 save('E:\data\OT\predictresult\newstandard\PLtoPL\28DDMN\difference.mat','difference');
 save('E:\data\OT\predictresult\newstandard\PLtoPL\28DDMN\precentage.mat','precentage');
 
-%将预测自己和预测他人的均值都提取出来
+% Take the mean of predicting yourself and the mean of predicting others.
 predictself=[];
 predictother=[];
 for i=1:29

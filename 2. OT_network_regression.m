@@ -97,32 +97,32 @@ networkp17=[];
 %The first line is the empty model constant term for comparison, which is not included in the analysis, so the second line is started
 for i=2:14
 
-    %%得到13个网络的beta的均值和方差，由循环一行一行的得到
+    %%Get the mean and variance of the beta of the 13 networks, obtained by the loop line by line
     data1 =network_beta1(i,:);
-    %%做t检验
+    %% t-test
      [h1,p1] = ttest(data1);
      networkt1 = [networkt1,h1];
      networkp1 = [networkp1,p1];
-    %保存t检验结果
-    %save('E:\data\OT\predictresult\newstandard\OTtoOT1\1PN\networkt1.mat','networkt1');
+    %Save the t-test results
+    save('E:\data\OT\predictresult\newstandard\OTtoOT1\1PN\networkt1.mat','networkt1');
 
      data26 =network_beta26(i,:);
       [h26,p26] = ttest(data26);
       networkt26 = [networkt26,h26];
       networkp26 = [networkp26,p26];
-      %save('E:\data\OT\predictresult\newstandard\OTtoOT1\26VDMN\networkt26.mat','networkt26');
+      save('E:\data\OT\predictresult\newstandard\OTtoOT1\26VDMN\networkt26.mat','networkt26');
  
      data19 =network_beta19(i,:);
       [h19,p19] = ttest(data19);
       networkt19 = [networkt19,h19];
       networkp19 = [networkp19,p19];
-      %save('E:\data\OT\predictresult\newstandard\OTtoOT1\19SN\networkt19.mat','networkt19');
+      save('E:\data\OT\predictresult\newstandard\OTtoOT1\19SN\networkt19.mat','networkt19');
 
      data17 =network_beta17(i,:);
       [h17,p17] = ttest(data17);
       networkt17 = [networkt17,h17];
       networkp17 = [networkp17,p17];
-      %save('E:\data\OT\predictresult\newstandard\OTtoOT1\17ASN\networkt17.mat','networkt17');
+      save('E:\data\OT\predictresult\newstandard\OTtoOT1\17ASN\networkt17.mat','networkt17');
 end
 A=[networkp1(1,:)';networkp17(1,:)';networkp19(1,:)';networkp26(1,:)'];
 
@@ -131,9 +131,9 @@ boxfig26=network_beta1';
 p = boxplot(boxfig26,'BoxStyle' ,'filled','Colorgroup',labelOT.Var1,'OutlierSize',1,'Symbol','.','Widths',0.1,'Labels',labelOT.Var1);
 hold on
 sz=8;
-%调整星号位置
+%Adjust the asterisk position
 t=0.4*networkt1;
-%星号颜色为黑色
+%setting the asterisk is black in color
 c=[0,0,0];
 g=(1:1:13);
 scatter(g,t,sz,c,'*');

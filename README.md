@@ -1,8 +1,8 @@
 # OT_task_rest
-## Oxytocin modulates social brain network correlations in resting and task state (2022 Cerebral Cortex) <img src="https://github.com/andlab-um/OT_task_rest/blob/main/procedure.png" align="right" width="361px">
+## Oxytocin modulates social brain network correlations in resting and task state (2022 *Cerebral Cortex*) <img src="https://github.com/andlab-um/OT_task_rest/blob/main/main%20result.png" align="right" width="361px">
 
 [![DOI](https://img.shields.io/badge/biorxiv-preprint-brightgreen)](https://doi.org/10.1101/2021.12.30.474596)<br />
-[![Twitter URL](https://img.shields.io/twitter/url?label=%40ANDlab3&style=social&url=https%3A%2F%2Ftwitter.com%2Flizhn7)](https://twitter.com/ANDlab3)
+[![Twitter URL](https://img.shields.io/twitter/url?label=%40ANDlab3&style=social)](https://twitter.com/ANDlab3)
 
 
 **For this work: <br />**
@@ -17,12 +17,12 @@ ___
 
 
 ### Qingyuan Wu et al(2022)
-
+<img src="https://github.com/andlab-um/OT_task_rest/blob/main/procedure.png" align="center" width="1000px">
 ## Analysis Code
 
 All code required to reproduce results presented in the paper is here.
 
-Reading order: OTaggbeta, OTnetworkregression, myreconstruct, oldreconstruct, and correlation.
+The order of reading: OTaggbeta, OTnetworkregression, myreconstruct, oldreconstruct, and correlation.
 
 The models are constructed using all code in "OTaggbeta" and "OTnetworkregression".
 We use code in "aggbeta" to predict each IC in the task state by all extracted ICs from the rsfMRI data.
@@ -31,7 +31,8 @@ Due to the code in "aggbeta" and "networkregression" being most similar, we only
 
 "Myreconstruct" and "oldreconstruct" are all applied to predicting task data through combining the resting data and the model, followed by calculating the correlation coefficients between the predicted data and the actual data. The only difference between the two scripts is that the resting data of one subject is combined with his own beta map in "myreconstruct", but is combined with other's beta map in "oldreconstruct".
 
-Specifically, the difference is displayed in the step "ypredict=XrestPL*agg_beta28(:,c);" of the first loop. "Myreconstruct" provides detailed code comments.
+Specifically, the difference is displayed in the step "ypredict=XrestPL*agg_beta28(:,c);" of the first loop.
+"Myreconstruct" provides detailed code comments.
 
 
 

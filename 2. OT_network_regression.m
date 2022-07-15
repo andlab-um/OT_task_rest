@@ -1,4 +1,6 @@
-%OT
+% We merged ICs belonged to the same network, obtaining 13 predictors of the resting fMRI dataset. 
+% Then we calculated the prediction power (beta value) of these networks to the task networks.
+
 network_beta1 = [];  
 network_beta17 = [];
 network_beta19 = [];
@@ -11,7 +13,7 @@ for i=1:2
     namerest = strcat('OTot_ica_br',int2str(i),'.mat');
     load(['E:\data\OT\OT_Resting\ICA_results_2\OT\',namerest]);
     b=compSet.ic;
-    %OT静息态成分及最后的X
+
     bgn=b([4,5,13,32],:);
     BGN=(mean(bgn))';
     vn=b([14,26],:);
@@ -53,8 +55,8 @@ for i=1:2
     yfOTic17= a(17,:)';
     yfOTic19= a(19,:)';
     yfOTic26= a(26,:)';
-%算beta值并评估模型
-%将60个session的betamap放到一起
+%Calculate beta value and evaluate the model
+
     [b,bint,r,rint,stats] = regress(yfOTic1,XnetworkOT);
     network_beta1 = [network_beta1,b];
     networkR1=[networkR1;stats];
@@ -91,8 +93,9 @@ networkp1=[];
 networkp26=[];
 networkp19=[];
 networkp17=[];
-%第一行是用于对照的空模型常数项，不纳入分析，因此从第二行开始
-for i=1:13
+
+%The first line is the empty model constant term for comparison, which is not included in the analysis, so the second line is started
+for i=2:14
 
     %%得到13个网络的beta的均值和方差，由循环一行一行的得到
     data1 =network_beta1(i,:);

@@ -1,8 +1,8 @@
 # OT_task_rest
-## Oxytocin modulates social brain network correlations in resting and task state (2022 *Cerebral Cortex*) <img src="https://github.com/andlab-um/OT_task_rest/blob/main/main%20result.png" align="right" width="361px">
+## Oxytocin modulates social brain network correlations in resting and task state (2022 *Cerebral Cortex*) <img src="https://github.com/andlab-um/OT_task_rest/blob/main/procedure.png" align="right" width="361px">
 
 [![DOI](https://img.shields.io/badge/biorxiv-preprint-brightgreen)](https://doi.org/10.1101/2021.12.30.474596)<br />
-[![Twitter URL](https://img.shields.io/twitter/url?label=%40ANDlab3&style=social)](https://twitter.com/ANDlab3)
+[![Twitter URL](https://img.shields.io/twitter/url?label=%40ANDlab3&style=social)]
 
 
 **For this work: <br />**
@@ -17,7 +17,7 @@ ___
 
 
 ### Qingyuan Wu et al(2022)
-<img src="https://github.com/andlab-um/OT_task_rest/blob/main/procedure.png" align="center" width="1000px">
+<img src="https://github.com/andlab-um/OT_task_rest/blob/main//main%20result.png" align="center" width="1000px">
 ## Analysis Code
 
 All code required to reproduce results presented in the paper is here.

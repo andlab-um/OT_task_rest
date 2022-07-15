@@ -1,8 +1,9 @@
-%The inputs of this script include all resting and task ICs obtained by GIFT.
-%The outputs of this script include:
-%1. the contribution of all the resting ICs in predicting every task ICs, thus every task IC has a agg_beta.mat. 
-%2. the determination coefficients R square for each task IC, stored in the R.mat.
-%3. the results of the one-sample t-test which is performed to test whether the beta value of each resting ICs is significantly larger than zero, stored in the t.mat.
+% The inputs of this script include all resting and task ICs obtained by GIFT. In this case, the number of task ICs extracted from the oxytocin (OT) group are 1,17,19,23. 
+% We use the same script to analysis data of placebo (PL) group.
+% The outputs of this script include:
+% 1. the contribution of all the resting ICs in predicting every task ICs, thus every task IC has a agg_beta.mat. 
+% 2. the determination coefficients R square for each task IC, stored in the R.mat.
+% 3. the results of the one-sample t-test which is performed to test whether the beta value of each resting ICs is significantly larger than zero, stored in the t.mat.
 
     agg_beta1 = [];
     agg_beta17 = [];
@@ -13,12 +14,12 @@
     R19=[];
     R26=[];
     
+% Load all resting ICs of each subject in the OT group as predictors
     for i=1:30
-    %load all resting ICs of each subject in the OT group as predictors
     namerest = strcat('OTot_ica_br',int2str(i),'.mat');
     load(['E:\data\OT\OT_Resting\ICA_results_2\OT\',namerest]);
     b=compSet.ic;
-    %Delete the ICs that does not meet requirements
+%Delete the ICs that does not meet requirements (significant correlation coefficient with brain network template)
 %     delete=[2,9,14,27,28];%for PL group
      delete=[8,9,12,15,23,33];%for OT group
     b(delete,:)=[];
@@ -29,7 +30,7 @@
 %Extract the task ICs of each subject
 
 %First extract the odd sequence(session 1) and then the even sequence(session 2).
-   for j=1:2
+   for j=1:2 % 2 sessions
     t=(j:2:60);
     e=t(1,i);
     namefunc = strcat('an_ica_br',int2str(e),'.mat');

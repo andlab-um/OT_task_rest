@@ -1,10 +1,13 @@
-%Three main result will be obtained by this script:
-%1. men.mat is a 30*30 (in the OT group) or 29*29(in the PL group) matrix, because of the resting data of every subject are combined with all subjects' models respectively to obtain the predicted activation of all 30 subjects. 
-%每个被试将自己的静息态数据代入每个人的betamap，预测所有30个人的准确率，即相关系数）或（PL条件）的矩阵。
-%2. predict.mat是每个人用自己的静息态数据和betamap预测出来的任务态数据，用于画预测脑图，57549（个voxel）*30（人）。
-%3. percentage.mat是每个人预测自己的准确率减去预测他人的准确率再除以预测他人的准确率，每个人都有一个值，因此是一个30（人）*1的矩阵
-%由于有2个run，所以对于需要预测的每一个任务态成分来说，第一个for循环都需要运行2次，第一次设置参数t=(1:2:58)（即提取任务态的每个被试的奇数项，run1），ypredict=XrestPL*agg_beta(:,c)（agg_beta的前30列是run1的betamap）;第二次设置参数t=(2:2:58)（偶数项run2），ypredict=XrestPL*agg_beta(:,c+29)（后30列是run2的betamap）
-%目前是PL条件，如果是OT条件则需要改成i=1：30，使用“OT静息态成分及最后的X”，c=1：30，t=(2:2:60)时ypredict=XrestPL*agg_beta28(:,c+30)，
+%The inputs of this script include all resting and task ICs obtained by GIFT, and the aggbeta.mat(the outputs of script "1. OTaggbeta").
+%Three main outputs will be obtained by this script:
+%1. men.mat is a 30*30 (in the OT group) or 29*29(in the PL group) correlation matrix, because of the resting data of every subject are combined with all subjects' models respectively to obtain the predicted activation of all 30(or 29) subjects. 
+%2. predict.mat stores the self-predicted task activation. The predicted task activation of each subject are calculated using his own resting data and model. predict.mat is a 57549 (voxels) * 30(subjects in OT group) or a 57549 (voxels) * 29(subjects in PL group) matrix for drawing the predicted task brain activation map. 
+%3. percentage.mat showed the increasing degree of self-predicted accuracy relative to other-predicted accuracy. It is calculated by subtracting averaged other-predicted accuracy from the self-predicted accuracy and then calculating the percentage increase over the averaged other-predicted accuracy. This process is performed in each subject, thus percentage.mat is a 30 (subjects in OT group) * 1 or a 29 (subjects in PL group) * 1 matrix.
+
+% Due to there are 2 sessions, the first loop need to run twice for every task IC.
+% This script is analysing the data of placebo group. 
+% When using it to deal with data of the oxytocin group, all "for i=1:29" need changing to "for i=1:30", setting c=1：30，t=(j:2:60), ypredict=XrestPL*agg_beta28(:,c+30)
+
 %OTtoOT
 rz=[];
 pz=[];
@@ -21,17 +24,13 @@ for i=1:29
       b(delete,:)=[];
       XrestPL=b';
       
-% %     OT静息态成分及最后的X
-%       delete=[8,9,12,15,23,33];
-%       b(delete,:)=[];
-%       XrestOT=b';
-    
         for c=1:29
-            t=(2:2:58);
+            for j=1:2;
+            t=(j:2:58);
             e=t(1,c);
             namefunc = strcat('PLot_ica_br',int2str(e),'.mat');
-            load(['E:\data\OT\OT_Functional\ICA\new\testPL_OTdefaultmask\',namefunc]) ;%使用任务态默认生成mask的被试的ica数据
-            yorigin=(compSet.ic(28,:))';%注意预测不同成分时需要改这里的值，比如现在预测的是PL任务态里的第28个成分DDMN，就是第28行，下面用到的betamap也是对应的agg_beta28
+            load(['E:\data\OT\OT_Functional\ICA\new\testPL_OTdefaultmask\',namefunc]) ;% Task ICs
+            yorigin=(compSet.ic(28,:))';%Note that you need to change the values here to predict different components, such as DDMN, the 28th component in the PL task state, and agG_beta28 for betamap
             ypredict=XrestPL*agg_beta28(:,c+29);%X是57549*30的矩阵，agg是第e个人的30个主成分，30*1的矩阵，列向量。每个人用自己的静息态数据和别人的beta map，预测出来和别人的real对比。若t是奇数列，则为e，若t是偶数列，则为e+30
             %把自己预测自己得出的y的提取出来，每个被试都有一个，用于画预测脑图。如当i=c=1时，就是第一个被试的静息态预测第一个被试的任务态。
     %         tf=isequal(i,c);
@@ -44,6 +43,7 @@ for i=1:29
             [rho,pval] = corr(ypredict,yorigin);
             r=[r,rho];
             p=[p,pval];
+            end
         end
     rz=[rz;r];
     pz=[pz;p];

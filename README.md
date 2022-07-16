@@ -24,7 +24,7 @@ ___
 
 All code required to reproduce results presented in the paper is here.
 
-The order of reading: OTaggbeta, OTnetworkregression, myreconstruct, oldreconstruct, and correlation.
+The order of reading: OTaggbeta, OTnetworkregression, myreconstruct, oldreconstruct,.
 
 The models are constructed using all code in "OTaggbeta" and "OTnetworkregression".
 We use code in "aggbeta" to predict each IC in the task state by all extracted ICs from the rsfMRI data.
@@ -36,18 +36,13 @@ Due to the code in "aggbeta" and "networkregression" being most similar, we only
 Specifically, the difference is displayed in the step "ypredict=XrestPL*agg_beta28(:,c);" of the first loop.
 "Myreconstruct" provides detailed code comments.
 
-
-
+All files with "SI" prefix are used to produce the result showed in Figure S3 (in supplementary file).
 
 ## Data
-
 
 - The behavior data for the experiment are in `beha_data.csv`
 - All fMRI data with descriptions of the variables is put in openfmri
 
-## Models
-
-predictive modelling and analysis (including figure 2-3) is under `./models`
 
 ## Bibtex citation
 

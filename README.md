@@ -49,9 +49,19 @@ All files with "SI" prefix are used to produce the result showed in Figure S3 (i
 1.
 
 
-    @article{wang2022role,
-        title={The role of oxytocin in modulating self-other distinction in human brain: a pharmacological fMRI study},
-        author={Wang, Yuanchen and Wang, Ruien and Wu, Haiyan},
-        journal={Cerebral cortex (New York, NY: 1991)},
-        pages={bhac167}
-    }
+@article{10.1093/cercor/bhac295,
+    author = {Wu, Qingyuan and Huang, Qi and Liu, Chao and Wu, Haiyan},
+    title = "{Oxytocin modulates social brain network correlations in resting and task state}",
+    journal = {Cerebral Cortex},
+    volume = {33},
+    number = {7},
+    pages = {3607-3620},
+    year = {2022},
+    month = {08},
+    abstract = "{The effects of oxytocin (OT) on the social brain can be tracked upon assessing the neural activity in resting and task states, and developing a system-level framework for characterizing the state-based functional relationships of its distinct effect. Here, we contribute to this framework by examining how OT modulates social brain network correlations during resting and task states, using fMRI. First, we investigated network activation, followed by an analysis of the relationships between networks and individual differences. Subsequently, we evaluated the functional connectivity in both states. Finally, the relationship between networks across states was represented by the predictive power of networks in the resting state for task-evoked activities. The differences in the predicted accuracy between the subjects displayed individual variations in this relationship. Our results showed that the activity of the dorsal default mode network in the resting state had the largest predictive power for task-evoked activation of the precuneus network (PN) only in the OT group. The results also demonstrated that OT reduced the individual variation in PN in the prediction process. These findings suggest a distributed but modulatory effect of OT on the association between resting and task-dependent brain networks.}",
+    issn = {1047-3211},
+    doi = {10.1093/cercor/bhac295},
+    url = {https://doi.org/10.1093/cercor/bhac295},
+    eprint = {https://academic.oup.com/cercor/article-pdf/33/7/3607/49574829/bhac295.pdf},
+}
+
